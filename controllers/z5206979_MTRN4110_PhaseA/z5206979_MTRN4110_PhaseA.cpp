@@ -256,7 +256,7 @@ char getHeading(char h, char turn) {
 // Detect walls on left, right and front of robot
 void detectWalls(char walls[], DistanceSensor *sensors[]) {
   for (int i = 0; i < NUM_SENSORS; i++) {
-    walls[i] = (sensors[i]->getValue() < 950) ? 'Y' : 'N';
+    walls[i] = (sensors[i]->getValue() < 995) ? 'Y' : 'N';
   }
 }
 
