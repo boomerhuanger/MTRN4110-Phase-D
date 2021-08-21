@@ -1,23 +1,41 @@
 # MTRN4110 Phase D: E-puck goes brrrrrrrrrr 
 
 ## Prerequisites (assuming a Windows setup)
+1. A conda virtual environment must be created and installed with the packages in the `programs/requirements.txt`. You can follow these instructions: [Installing a conda Virtual Environment](#installing-a-conda-virtual-environment)
 
-1. Webots 2021a and Anaconda 2021.05 are both already installed on your computer. If not, they can be downloaded respectively via the following links: 
+2. Webots 2021a and Anaconda 2021.05 are both already installed on your computer. If not, they can be downloaded respectively via the following links: 
 https://github.com/cyberbotics/webots/releases 
 https://www.anaconda.com/products/individual
 
-1. In addition, the Webots path environment variable should already be setup. If not, this can be done following these steps: [Adding webots to Path environment variable](#Adding-'webots'-to-Path-environment-variable)
+2. In addition, the Webots path environment variable should already be setup. If not, this can be done following these steps: [Adding webots to Path environment variable](#Adding-'webots'-to-Path-environment-variable)
 
-2. A conda virtual environment should also be created and installed with the packages in the `programs/requirements.txt`
-
-
+## Installing the Program
+1. Clone this repository to a desired location
+2. Open an Anaconda Command Prompt inside the repository directory
+3. Ensure the virtual environment has been installed
+4. Ensure webots is in the system's Path environment variable
 ## Running the Program
-1. Open the conda virtual environment `conda activate mtrn4110`.
-2. Run the python file `python programs/run_phases.py` with default settings. Use `python programs/run_phases.py -h` to see optional additional arguments.
+1. Open the conda virtual environment 
+    ```
+    conda activate mtrn4110
+    ```
+2. Run the python file with default settings:
+    ```
+    python programs/run_phases.py
+    ```
+    To see the optional additional arguments use the command:
+    ```
+    python programs/run_phases.py -h
+    ``` 
 3. When running the program, a window with the intermediate results will pop-up. The program will pause on each image, and pressing any key will proceed to the next image.
-4. Once the first phase has run, you are prompted to press any key to launch Webots and the remaining phases.
-5. Once Webots will open, you can choose what mode what to run based on user input. 
-6. Closing Webots will close the program, and then running `conda deactivate` in the terminal to close the virtual environment
+4. \[*Optional*\] If motion tracking is activated, the use can press the `q` key to stop the motion tracking during the video.
+5. Once the first phase has run, you are prompted to press any key to launch Webots and the remaining phases.
+6. Once Webots will open, you can choose what mode what to run based on user input. 
+7. Closing Webots will close the program
+8. To close the virtual environment, run the command:
+    ```
+    conda deactivate
+    ``` 
 
 
 
@@ -46,3 +64,23 @@ https://www.anaconda.com/products/individual
 6.  Press 'Edit' underneath user variables and then add a new variable, pasting in the address that was copied from before. 
 
 
+## Installing a conda Virtual Environment
+
+1. To set up a virtual environment, open Anaconda Prompt, navigate to the location of the repo and run:
+    ```
+    conda create -n mtrn4110 python=3.7.10
+    ```
+
+2. Then, to activate and enter the environment, run
+    ```
+    conda activate mtrn4110
+    ```
+
+3. To install the dependencies, run within the virtual environment:
+    ```
+    pip install -r programs/requirements.txt
+    ```
+4. Deactivate the virtual environment using:
+    ```
+    conda deactivate
+    ```
