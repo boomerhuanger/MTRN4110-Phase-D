@@ -99,5 +99,5 @@
 [z5205986_MTRN4110_PhaseB]  --- --- --- --- --- --- --- --- --- 
 [z5205986_MTRN4110_PhaseB] Shortest path with least turns found!
 00S[z5205986_MTRN4110_PhaseB] Path Plan (23 steps): 00SLFFFRFLFFLFRFFFRFFRFFFF00SLFFFRFLFFLFRFFFRFFRFFFF
-[z5205986_MTRN4110_PhaseB] Writing path plan to ../../PathPlan.txt...
-[z5205986_MTRN4110_PhaseB] Path plan written to ../../PathPlan.txt!
+[z5205986_MTRN4110_PhaseB] Writing path plan to ../../Path.txt...
+[z5205986_MTRN4110_PhaseB] Path plan written to ../../Path.txt!

@@ -12,7 +12,7 @@ import argparse
 # Default Constants
 MAZE_FILE_NAME = "Maze.png"
 ROBOT_FILE_NAME = "Robot.png"
-MAP_FILE_NAME = 'MapBuilt.txt'
+MAP_FILE_NAME = 'Map.txt'
 MAZE_VIDEO_PATH = "MTRN4110_PhaseD.mp4"
 IMAGE_LADYBUG_FILE_NAME = 'Ladybug_small.png'
 WEBOTS_WORLD_PATH = "worlds/MTRN4110_PhaseD.wbt"
@@ -60,7 +60,7 @@ if args.mazepath and args.rbtpath:
     # Print map to the same location
     maze_split = MAZE_FILE_NAME.split('/')
     if len(maze_split) < 2:
-        MAP_FILE_NAME = "MapBuilt_Custom.txt"
+        MAP_FILE_NAME = "Map_Custom.txt"
     else:
         MAP_FILE_NAME = '/'.join(maze_split[:-1]) + "/MapBuilt_Custom.txt"
 
@@ -71,28 +71,28 @@ elif (args.mazepath and not args.rbtpath) or (not args.mazepath and args.rbtpath
 elif args.preset == 1:
     MAZE_FILE_NAME = "Maze.png"
     ROBOT_FILE_NAME = "Robot.png"
-    MAP_FILE_NAME = 'MapBuilt.txt'
+    MAP_FILE_NAME = 'Map.txt'
     MAZE_VIDEO_PATH = "MTRN4110_PhaseD.mp4"
     RUN_DEFAULT = True
     RUN_MOTION_TRACKING = False
 elif args.preset == 2:
     MAZE_FILE_NAME = "Maze_2.png"
     ROBOT_FILE_NAME = "Robot_2.png"
-    MAP_FILE_NAME = 'MapBuilt_2.txt'
+    MAP_FILE_NAME = 'Map_2.txt'
     MAZE_VIDEO_PATH = "MTRN4110_PhaseD_2.mp4"
     RUN_DEFAULT = True
     RUN_MOTION_TRACKING = False
 elif args.presettrack == 1:
     MAZE_FILE_NAME = "Maze.png"
     ROBOT_FILE_NAME = "Robot.png"
-    MAP_FILE_NAME = 'MapBuilt.txt'
+    MAP_FILE_NAME = 'Map.txt'
     MAZE_VIDEO_PATH = "MTRN4110_PhaseD.mp4"
     RUN_DEFAULT = True
     RUN_MOTION_TRACKING = True
 elif args.presettrack == 2:
     MAZE_FILE_NAME = "Maze_2.png"
     ROBOT_FILE_NAME = "Robot_2.png"
-    MAP_FILE_NAME = 'MapBuilt_2.txt'
+    MAP_FILE_NAME = 'Map_2.txt'
     MAZE_VIDEO_PATH = "MTRN4110_PhaseD_2.mp4"
     RUN_DEFAULT = True
     RUN_MOTION_TRACKING = True

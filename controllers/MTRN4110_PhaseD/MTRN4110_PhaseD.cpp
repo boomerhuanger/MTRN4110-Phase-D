@@ -26,7 +26,7 @@ constexpr char FIVE_KEY{'5'};
 constexpr char SIX_KEY{'6'};
 constexpr int PROGRAM_STOP{-1};
 
-const auto PATH_PLAN_FILE_NAME = "../../PathPlan.txt"; 
+const auto PATH_PLAN_FILE_NAME = "../../Path.txt"; 
 
 using namespace webots;
 

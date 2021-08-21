@@ -37,7 +37,7 @@ using namespace webots;
 #define SENSOR_VALUE 995
 
 const auto PREFIX = "[z5206979_MTRN4110_PhaseA] ";
-const auto MOTION_PLAN_PATH = "../../MotionPlan.txt";
+const auto MOTION_PLAN_PATH = "../../Path.txt";
 const auto MOTION_EXECUTION_PATH = "../../MotionExecution.csv";
 const auto LEFT_WHEEL_MOTOR = "left wheel motor";
 const auto RIGHT_WHEEL_MOTOR = "right wheel motor";

@@ -28,9 +28,8 @@ f)  Press 'Edit' underneath user variables and then add a new variable, pasting 
 
 
 Run the Program
-
-1. Run the script file 
-2. Phase C and motion-tracking should now run. After this is run, Webots will open automatically. 
+1. Open the conda virtual environment `conda activate mtrn4110`
+2. Run the python file `python filename`
 3. Once Webots will open, you can choose what mode what to run based on user input. 
 
 
