@@ -59,16 +59,22 @@ int main(int argc, char **argv) {
             //run chosen mode based on user input
             if (key == ONE_KEY) {
                 runPhaseA(robot, false, " ");
+                std::cout << startCommands << std::endl;
             } else if (key == TWO_KEY) {
                 runPhaseB(robot, 0,0, true, false, PATH_PLAN_FILE_NAME, flag, flag1);
+                std::cout << startCommands << std::endl;
             } else if (key == THREE_KEY) {
                 runEpuckManualControlMode(robot, TIME_STEP_VALUE);
+                std::cout << startCommands << std::endl;
             } else if (key == FOUR_KEY) {
                 runWallFollowingMode(robot, TIME_STEP_VALUE);
+                std::cout << startCommands << std::endl;
             } else if (key == FIVE_KEY) {
                 runOmniWheelRobotManualControlMode(robot, 4);
+                std::cout << startCommands << std::endl;
             } else if (key == SIX_KEY) {
                 runBangBangMode(robot);
+                std::cout << startCommands << std::endl;
             }
         }
         prevKey = key;
