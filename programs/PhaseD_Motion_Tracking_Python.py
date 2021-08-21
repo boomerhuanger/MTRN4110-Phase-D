@@ -6,44 +6,110 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import sys
+import os
 import argparse
 
-
-# Constants
+# Default Constants
 MAZE_FILE_NAME = "Maze.png"
 ROBOT_FILE_NAME = "Robot.png"
-IMAGE_LADYBUG_FILE_NAME = 'Ladybug_small.png'
 MAP_FILE_NAME = 'MapBuilt.txt'
 MAZE_VIDEO_PATH = "MTRN4110_PhaseD.mp4"
-RESULTS_WINDOW_NAME = 'Result'
-cv2.namedWindow(RESULTS_WINDOW_NAME, cv2.WINDOW_AUTOSIZE)
-
-
-# # Create the parser
-# my_parser = argparse.ArgumentParser(description='List the content of a folder')
-
-# # Add the arguments
-# my_parser.add_argument('Path',
-#                        metavar='path',
-#                        type=str,
-#                        help='the path to list')
-
-# # Execute the parse_args() method
-# args = my_parser.parse_args()
-
-# input_path = args.Path
-
-# if not os.path.isdir(input_path):
-#     print('The path specified does not exist')
-#     sys.exit()
-
-# print('\n'.join(os.listdir(input_path)))
-
-
+IMAGE_LADYBUG_FILE_NAME = 'Ladybug_small.png'
+WEBOTS_WORLD_PATH = "worlds/MTRN4110_PhaseD.wbt"
 
 RUN_DEFAULT = True
 RUN_MOTION_TRACKING = True
 
+RESULTS_WINDOW_NAME = 'Result'
+
+
+# Create the argparser
+parser = argparse.ArgumentParser(description='Run Phase C')
+parser.add_argument('-m', '--mazepath', type=str, help='path to the maze image')
+parser.add_argument('-r', '--rbtpath', type=str, help='path to the corresponding robot image')
+parser.add_argument('-t', '--trackmotion', type=str, help='track robot with specified video path')
+parser.add_argument('-p', '--preset', type=int, help='select preset world 1 or 2 without tracking')
+parser.add_argument('-pt', '--presettrack', type=int, help='select preset world 1 or 2 with tracking')
+parser.add_argument('-ww', '--webotsworld', type=str, help='path to webots world')
+
+args = parser.parse_args()
+
+# Check arguments
+if args.mazepath and args.rbtpath:
+    # Get the maze path
+    MAZE_FILE_NAME = args.mazepath
+    # Check maze path exists
+    if not os.path.exists(MAZE_FILE_NAME):
+        print('The maze path specified does not exist')
+        sys.exit()
+    # If maze path specified, check for robot path
+    ROBOT_FILE_NAME = args.rbtpath
+    # Check robot path exists
+    if not os.path.exists(ROBOT_FILE_NAME):
+        print('The robot path specified does not exist')
+        sys.exit()
+
+    # Check for motion tracking
+    if args.trackmotion:
+        MAZE_VIDEO_PATH = args.trackmotion
+        if not os.path.exists(ROBOT_FILE_NAME):
+            print('The video path specified does not exist')
+            sys.exit()
+    
+    # If custom maze and robot image
+    # Print map to the same location
+    maze_split = MAZE_FILE_NAME.split('/')
+    if len(maze_split) < 2:
+        MAP_FILE_NAME = "MapBuilt_Custom.txt"
+    else:
+        MAP_FILE_NAME = '/'.join(maze_split[:-1]) + "/MapBuilt_Custom.txt"
+
+elif (args.mazepath and not args.rbtpath) or (not args.mazepath and args.rbtpath):
+        print("Error: Must specify both maze image path and robot image path")
+        sys.exit()
+# Check if preset is selected
+elif args.preset == 1:
+    MAZE_FILE_NAME = "Maze.png"
+    ROBOT_FILE_NAME = "Robot.png"
+    MAP_FILE_NAME = 'MapBuilt.txt'
+    MAZE_VIDEO_PATH = "MTRN4110_PhaseD.mp4"
+    RUN_DEFAULT = True
+    RUN_MOTION_TRACKING = False
+elif args.preset == 2:
+    MAZE_FILE_NAME = "Maze_2.png"
+    ROBOT_FILE_NAME = "Robot_2.png"
+    MAP_FILE_NAME = 'MapBuilt_2.txt'
+    MAZE_VIDEO_PATH = "MTRN4110_PhaseD_2.mp4"
+    RUN_DEFAULT = True
+    RUN_MOTION_TRACKING = False
+elif args.presettrack == 1:
+    MAZE_FILE_NAME = "Maze.png"
+    ROBOT_FILE_NAME = "Robot.png"
+    MAP_FILE_NAME = 'MapBuilt.txt'
+    MAZE_VIDEO_PATH = "MTRN4110_PhaseD.mp4"
+    RUN_DEFAULT = True
+    RUN_MOTION_TRACKING = True
+elif args.presettrack == 2:
+    MAZE_FILE_NAME = "Maze_2.png"
+    ROBOT_FILE_NAME = "Robot_2.png"
+    MAP_FILE_NAME = 'MapBuilt_2.txt'
+    MAZE_VIDEO_PATH = "MTRN4110_PhaseD_2.mp4"
+    RUN_DEFAULT = True
+    RUN_MOTION_TRACKING = True
+else:
+    RUN_DEFAULT = True
+    RUN_MOTION_TRACKING = False
+
+if args.webotsworld:
+    WEBOTS_WORLD_PATH = args.webotsworld
+    if not os.path.exists(WEBOTS_WORLD_PATH):
+        print('The webots world specified does not exist')
+        sys.exit()
+
+
+
+
+cv2.namedWindow(RESULTS_WINDOW_NAME, cv2.WINDOW_AUTOSIZE)
 # 3.1 Read in an image and display it in RGB mode
 
 def task1(plot=False):
@@ -732,13 +798,21 @@ def run(default, trackMotion):
 run(RUN_DEFAULT, RUN_MOTION_TRACKING)
 
 
-#open Webots automatically to run other parts
-#path = "/Users/smash/OneDrive/Documents/UNI/Year 4 Sem 2/MTRN4110/Phase D/worlds"
-#path = "../worlds"
-#world_file = "MTRN4110_PhaseD.wbt" 
-#try: 
-#     os.chdir(path)
-#     os.system(world_file)
-# except:
-#     print("Webots didn't open- check file paths are correct")
+# open Webots automatically to run other parts
+# path = "/Users/smash/OneDrive/Documents/UNI/Year 4 Sem 2/MTRN4110/Phase D/worlds"
+# path = "worlds/MTRN4110_PhaseD.wbt" 
+
+
+# print("Press any key to run webots")
+# cv2.waitKey()
+cv2.destroyAllWindows()
+
+
+try: 
+    # os.chdir(WEBOTS_WORLD_PATH)
+    cmd = "webots " + WEBOTS_WORLD_PATH
+    # print(cmd)
+    os.system(cmd)
+except:
+    print("Webots didn't open - check file paths are correct")
 
