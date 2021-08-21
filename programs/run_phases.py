@@ -771,9 +771,9 @@ def trackRobot(video_path):
     # cleanup the camera and close any open windows
     # print(i)
 
-    cv2.waitKey(0)
+    # cv2.waitKey(0)
     video.release()
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
 
 # trackRobot("../MTRN4110_PhaseD.mp4")
 
@@ -803,8 +803,8 @@ run(RUN_DEFAULT, RUN_MOTION_TRACKING)
 # path = "worlds/MTRN4110_PhaseD.wbt" 
 
 
-# print("Press any key to run webots")
-# cv2.waitKey()
+print("Press any key to run webots")
+cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 
