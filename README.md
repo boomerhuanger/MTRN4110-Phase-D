@@ -9,11 +9,12 @@ https://www.anaconda.com/products/individual
 
 2. In addition, the Webots path environment variable should already be setup. If not, this can be done following these steps: [Adding webots to Path environment variable](#Adding-'webots'-to-Path-environment-variable)
 
+
 ## Installing the Program
 1. Clone this repository to a desired location
 2. Open an Anaconda Command Prompt inside the repository directory
 3. Ensure the virtual environment has been installed
-4. Ensure webots is in the system's Path environment variable
+4. Ensure Webots is in the system's Path environment variable (can be run from the command line)
 ## Running the Program
 1. Open the conda virtual environment 
     ```
@@ -27,17 +28,18 @@ https://www.anaconda.com/products/individual
     ```
     python programs/run_phases.py -h
     ``` 
+   * The program can be run without motion tracking with the preset worlds 1 or 2 with including `-p 1` or `-p 2`, or with motion tracking with `-pt 1` or `-pt 2`.
+   * If you choose not to run the preset worlds, you must specify both the paths for the maze image `-m <maze path>`, and the robot image `-r <robot path>`.
+   * If you choose to run motion tracking on a specfic video, use `-t <motion video>`.
 3. When running the program, a window with the intermediate results will pop-up. The program will pause on each image, and pressing any key will proceed to the next image.
 4. \[*Optional*\] If motion tracking is activated, the use can press the `q` key to stop the motion tracking during the video.
 5. Once the first phase has run, you are prompted to press any key to launch Webots and the remaining phases.
 6. Once Webots will open, you can choose what mode what to run based on user input. 
 7. Closing Webots will close the program
-8. To close the virtual environment, run the command:
+8.  To close the virtual environment, run the command:
     ```
     conda deactivate
     ``` 
-
-
 
 ## Adding 'webots' to Path environment variable
 1. Open the file location of Webots by right-clicking it from your start menu and pressing "Open File Location". A window should opens as shown below:

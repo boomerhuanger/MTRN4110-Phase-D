@@ -48,13 +48,6 @@ if args.mazepath and args.rbtpath:
     if not os.path.exists(ROBOT_FILE_NAME):
         print('The robot path specified does not exist')
         sys.exit()
-
-    # Check for motion tracking
-    if args.trackmotion:
-        MAZE_VIDEO_PATH = args.trackmotion
-        if not os.path.exists(ROBOT_FILE_NAME):
-            print('The video path specified does not exist')
-            sys.exit()
     
     # If custom maze and robot image
     # Print map to the same location
@@ -63,10 +56,17 @@ if args.mazepath and args.rbtpath:
         MAP_FILE_NAME = "Map_Custom.txt"
     else:
         MAP_FILE_NAME = '/'.join(maze_split[:-1]) + "/MapBuilt_Custom.txt"
-
 elif (args.mazepath and not args.rbtpath) or (not args.mazepath and args.rbtpath):
         print("Error: Must specify both maze image path and robot image path")
         sys.exit()
+
+# Check for motion tracking
+if args.trackmotion:
+    MAZE_VIDEO_PATH = args.trackmotion
+    if not os.path.exists(ROBOT_FILE_NAME):
+        print('The video path specified does not exist')
+        sys.exit()
+
 # Check if preset is selected
 elif args.preset == 1:
     MAZE_FILE_NAME = "Maze.png"
