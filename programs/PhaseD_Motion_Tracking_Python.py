@@ -1,17 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
-import cv2 # OpenCV library
-print(cv2.__version__)
-import numpy as np # Numpy library for scientific computing
-import matplotlib.pyplot as plt # Matplotlib library for plotting
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
 import math
-
-
-# In[2]:
+import sys
+import argparse
 
 
 # Constants
@@ -20,10 +15,34 @@ ROBOT_FILE_NAME = "Robot.png"
 IMAGE_LADYBUG_FILE_NAME = 'Ladybug_small.png'
 MAP_FILE_NAME = 'MapBuilt.txt'
 MAZE_VIDEO_PATH = "MTRN4110_PhaseD.mp4"
+RESULTS_WINDOW_NAME = 'Result'
+cv2.namedWindow(RESULTS_WINDOW_NAME, cv2.WINDOW_AUTOSIZE)
 
 
-# In[3]:
+# # Create the parser
+# my_parser = argparse.ArgumentParser(description='List the content of a folder')
 
+# # Add the arguments
+# my_parser.add_argument('Path',
+#                        metavar='path',
+#                        type=str,
+#                        help='the path to list')
+
+# # Execute the parse_args() method
+# args = my_parser.parse_args()
+
+# input_path = args.Path
+
+# if not os.path.isdir(input_path):
+#     print('The path specified does not exist')
+#     sys.exit()
+
+# print('\n'.join(os.listdir(input_path)))
+
+
+
+RUN_DEFAULT = True
+RUN_MOTION_TRACKING = True
 
 # 3.1 Read in an image and display it in RGB mode
 
@@ -36,13 +55,13 @@ def task1(plot=False):
     if plot:
         #plt.figure(figsize = (10, 10))
         #plt.imshow(maze_img), plt.axis('off'), plt.title(f"Task 1 - Display image"), plt.show()
-        cv2.imshow(maze_img)
+        img_bgr = cv2.cvtColor(maze_img, cv2.COLOR_RGB2BGR)
+        cv2.imshow(RESULTS_WINDOW_NAME, img_bgr)
+        cv2.waitKey()
+
     return maze_img, robot_img, target_img
 
 # maze_img, robot_img, target_img = task1(plot=True)
-
-
-# In[4]:
 
 
 #3.2. Find the four ordered cornerstones of the maze
@@ -106,10 +125,12 @@ def task2(maze_img, plot=False):
     
     if plot:
         # Plot maze with circles on cornerstones
-        plt.figure(figsize = (10, 10))
-        plt.plot(), plt.imshow(maze_cp), plt.axis('off'), plt.title("Task 2 - Display maze corners")
-        plt.show()
-        
+        # plt.figure(figsize = (10, 10))
+        # plt.plot(), plt.imshow(maze_cp), plt.axis('off'), plt.title("Task 2 - Display maze corners")
+        # plt.show()
+        img_bgr = cv2.cvtColor(maze_cp, cv2.COLOR_RGB2BGR)
+        cv2.imshow(RESULTS_WINDOW_NAME, img_bgr)
+        cv2.waitKey()
         # plt.imshow(cyan_mask, cmap='gray')
         # plt.show()
 
@@ -142,9 +163,6 @@ def orderPoints(points, region):
 # maze_corners, corners, flipped = task2(maze_img, plot=True)
 
 
-# In[5]:
-
-
 #3.3 PERSPECTIVE TRANSFORM THE MAZE FROM THE ORIGINAL IMAGE TO A RECTANGLE IMAGE
 
 def task3(maze_corners, corners, plot=False):
@@ -165,15 +183,14 @@ def task3(maze_corners, corners, plot=False):
     maze_image_transformed = cv2.warpPerspective(maze_image_with_gemstones_rgb_copy , H, (width,height))
     
     if plot:
-        plt.figure(figsize = (10, 10))
-        plt.plot(), plt.imshow(maze_image_transformed), plt.axis('off'), plt.title("Task 3 - Transform the maze perspective"), plt.show()
-    
+        # plt.figure(figsize = (10, 10))
+        # plt.plot(), plt.imshow(maze_image_transformed), plt.axis('off'), plt.title("Task 3 - Transform the maze perspective"), plt.show()
+        img_bgr = cv2.cvtColor(maze_image_transformed, cv2.COLOR_RGB2BGR)
+        cv2.imshow(RESULTS_WINDOW_NAME, img_bgr)
+        cv2.waitKey()
     return maze_image_transformed
 
 # maze_transformed = task3(maze_corners, corners, plot=True)
-
-
-# In[6]:
 
 
 #3.4 DETECT ALL THE INTERNAL WALLS
@@ -217,16 +234,15 @@ def task4(maze_image_transformed, plot=False):
 
     # print(np.walls)
     if plot:
-        plt.figure(figsize = (10, 10))
-        plt.plot(), plt.imshow(maze_image_transformed_copy), plt.axis('off'), plt.title("Task 4 - Detect internal walls"), plt.show()
-
+        # plt.figure(figsize = (10, 10))
+        # plt.plot(), plt.imshow(maze_image_transformed_copy), plt.axis('off'), plt.title("Task 4 - Detect internal walls"), plt.show()
+        img_bgr = cv2.cvtColor(maze_image_transformed_copy, cv2.COLOR_RGB2BGR)
+        cv2.imshow(RESULTS_WINDOW_NAME, img_bgr)
+        cv2.waitKey()
 
     return maze_image_transformed_copy, walls
 
 # maze_walls, wall_mask = task4(maze_transformed, plot=True)
-
-
-# In[7]:
 
 
 #3.5 DETECT THE LOCATION AND HEADING OF THE ROBOT
@@ -371,16 +387,15 @@ def task5(maze_img, robot_img, flipped, plot=False):
     
     #plot the image
     if plot:
-        plt.figure(figsize = (10,10))
-        plt.plot(), plt.imshow(maze_image_transformed), plt.axis('off'), plt.title("Task 5 - Detect robot location and heading"), plt.show()
-
+        # plt.figure(figsize = (10,10))
+        # plt.plot(), plt.imshow(maze_image_transformed), plt.axis('off'), plt.title("Task 5 - Detect robot location and heading"), plt.show()
+        img_bgr = cv2.cvtColor(maze_image_transformed, cv2.COLOR_RGB2BGR)
+        cv2.imshow(RESULTS_WINDOW_NAME, img_bgr)
+        cv2.waitKey()
 
     return maze_image_transformed, [robot_centre_x, robot_centre_y, heading]
 
 # maze_robot, robot_loc = task5(maze_walls, robot_img, flipped, plot=True)
-
-
-# In[8]:
 
 
 #3.6 DETECT THE POSITION OF THE TRUE TARGET
@@ -433,15 +448,15 @@ def task6(maze_img, plot=False):
     cv2.drawMarker(maze_image_transformed, (ladybug_centre_x_final, ladybug_centre_y_final), (0,255,0), cv2.MARKER_TILTED_CROSS, 15, 2)
     
     if plot:
-        plt.figure(figsize = (10,10))
-        plt.plot(), plt.imshow(maze_image_transformed), plt.axis('off'), plt.title("Task 6 - Detect true target location"), plt.show()
-    
+        # plt.figure(figsize = (10,10))
+        # plt.plot(), plt.imshow(maze_image_transformed), plt.axis('off'), plt.title("Task 6 - Detect true target location"), plt.show()
+        img_bgr = cv2.cvtColor(maze_image_transformed, cv2.COLOR_RGB2BGR)
+        cv2.imshow(RESULTS_WINDOW_NAME, img_bgr)
+        cv2.waitKey()
+
     return maze_image_transformed, [ladybug_centre_x_final, ladybug_centre_y_final]
 
 # maze_target, target_loc = task6(maze_robot, plot=True)
-
-
-# In[9]:
 
 
 #3.7 GENERATE A MAP AND WRITE IT TO A TEXT FILE
@@ -558,9 +573,8 @@ def task7(maze_image_transformed, robot_loc, target_loc):
 # task7(maze_target, robot_loc, target_loc)
 
 
-# In[10]:
 
-
+# Motion Tracking add-on
 def drawRobot(img, robot_loc, radius=20):
     cv2.circle(img, tuple(robot_loc[:2]), radius, (255,0,0), 3)
     # cv2.putText(img, robot_loc[2], (robot_loc[0] - 5, robot_loc[1] + 5), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255,0,0), 2)
@@ -677,7 +691,7 @@ def trackRobot(video_path):
 
         # Show the result
         result = cv2.cvtColor(frame_points, cv2.COLOR_RGB2BGR)
-        cv2.imshow("Maze", result)
+        cv2.imshow(RESULTS_WINDOW_NAME, result)
 
         # Update variables
         last_point = tuple(rloc[:2])
@@ -695,12 +709,8 @@ def trackRobot(video_path):
     video.release()
     cv2.destroyAllWindows()
 
-
-
 # trackRobot("../MTRN4110_PhaseD.mp4")
 
-
-# In[11]:
 
 
 def run(default, trackMotion):
@@ -719,10 +729,7 @@ def run(default, trackMotion):
 # True, False = Runs normal tasks
 # False, True = Runs only motion tracking
 # True, True = Runs both normal tasks and motion tracking
-run(True, True)
-
-
-# In[12]:
+run(RUN_DEFAULT, RUN_MOTION_TRACKING)
 
 
 #open Webots automatically to run other parts
